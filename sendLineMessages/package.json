@@ -1,0 +1,9 @@
+{
+    "scripts": {
+        "start": "npx functions-framework --target=sendLineMessages"
+    },
+    "dependencies": {
+        "@google-cloud/functions-framework": "^3.4.5",
+        "uuid": "^11.0.5"
+    }
+}

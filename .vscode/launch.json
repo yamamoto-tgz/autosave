@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node-terminal",
+            "request": "launch",
+            "name": "sendLineMessages",
+            "skipFiles": ["<node_internals>/**"],
+            "env": {
+                "LINE_TOKEN": "${env:LINE_TOKEN}",
+                "LINE_USER_ID": "${env:LINE_USER_ID}"
+            },
+            "cwd": "${workspaceFolder}/sendLineMessages",
+            "command": "npm start"
+        }
+    ]
+}
