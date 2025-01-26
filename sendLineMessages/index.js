@@ -5,8 +5,6 @@ functions.http('sendLineMessages', (req, res) => {
     const LINE_TOKEN = process.env.LINE_TOKEN;
     const LINE_USER_ID = process.env.LINE_USER_ID;
 
-    console.log(LINE_TOKEN);
-
     fetch('https://api.line.me/v2/bot/message/push', {
         method: 'POST',
         headers: {
