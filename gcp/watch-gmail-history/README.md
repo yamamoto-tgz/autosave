@@ -31,3 +31,15 @@ gcloud functions deploy watch-gmail-history \
     --no-allow-unauthenticated \
     --set-env-vars=RKTN_PAY_LABEL=${RKTN_PAY_LABEL},RKTN_DEBIT_LABEL=${RKTN_DEBIT_LABEL}
 ```
+
+## Create scheduler
+
+```
+gcloud scheduler jobs create pubsub watch-gmail-history \
+    --location=us-west1 \
+    --schedule="0 0 * * 0" \
+    --topic=watch-gmail-history \
+    --message-body="-" \
+    --attributes="" \
+    --time-zone="Asia/Tokyo"
+```
