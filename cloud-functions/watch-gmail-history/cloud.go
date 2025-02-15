@@ -36,7 +36,7 @@ func init() {
 }
 
 func watchGmailHistory(ctx context.Context, e event.Event) error {
-	srv, err := Auth(ctx)
+	srv, err := autosave.
 	if err != nil {
 		return err
 	}
