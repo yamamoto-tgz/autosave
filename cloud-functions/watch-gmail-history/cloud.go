@@ -2,16 +2,12 @@ package watchgmailhistory
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
-	"io"
 	"os"
 
-	"cloud.google.com/go/storage"
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	"github.com/cloudevents/sdk-go/v2/event"
-	"golang.org/x/oauth2"
-	"golang.org/x/oauth2/google"
+	"github.com/yamamoto-tgz/autosave/oauth"
 	"google.golang.org/api/gmail/v1"
 	"google.golang.org/api/option"
 )
@@ -42,7 +38,12 @@ func init() {
 }
 
 func watchGmailHistory(ctx context.Context, e event.Event) error {
-	srv, err := auth(ctx)
+	cl, err := oauth.NewClient(ctx, BUCKET_NAME, CREDENTIALS_JSON, TOKEN_JSON)
+	if err != nil {
+		return err
+	}
+
+	srv, err := gmail.NewService(ctx, option.WithHTTPClient(cl))
 	if err != nil {
 		return err
 	}
@@ -61,64 +62,4 @@ func watchGmailHistory(ctx context.Context, e event.Event) error {
 	fmt.Printf("HistoryId: %d\n", res.HistoryId)
 
 	return nil
-}
-
-func auth(ctx context.Context) (*gmail.Service, error) {
-	config, err := readAuthConfig(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	tkn, err := readAuthToken(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	cl := config.Client(ctx, tkn)
-	return gmail.NewService(ctx, option.WithHTTPClient(cl))
-}
-
-func readFileFromStorage(ctx context.Context, bucketName string, fileName string) (io.Reader, error) {
-	cl, err := storage.NewClient(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	obj := cl.Bucket(bucketName).Object(fileName)
-	r, err := obj.NewReader(ctx)
-	if err != nil {
-		return nil, err
-	}
-	defer r.Close()
-
-	return r, nil
-}
-
-func readAuthConfig(ctx context.Context) (*oauth2.Config, error) {
-	r, err := readFileFromStorage(ctx, BUCKET_NAME, CREDENTIALS_JSON)
-	if err != nil {
-		return nil, err
-	}
-
-	bytes, err := io.ReadAll(r)
-	if err != nil {
-		return nil, err
-	}
-
-	return google.ConfigFromJSON(bytes, gmail.GmailReadonlyScope)
-}
-
-func readAuthToken(ctx context.Context) (*oauth2.Token, error) {
-	r, err := readFileFromStorage(ctx, BUCKET_NAME, TOKEN_JSON)
-	if err != nil {
-		return nil, err
-	}
-
-	tkn := &oauth2.Token{}
-	err = json.NewDecoder(r).Decode(tkn)
-	if err != nil {
-		return nil, err
-	}
-
-	return tkn, nil
 }

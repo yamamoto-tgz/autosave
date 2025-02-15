@@ -1,4 +1,4 @@
-module autosave.tgz/save-gmail-history
+module cloud.tgz/cloud
 
 go 1.23.5
 
