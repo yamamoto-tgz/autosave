@@ -7,7 +7,9 @@ import (
 
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	"github.com/cloudevents/sdk-go/v2/event"
+	"github.com/yamamoto-tgz/autosave/oauth"
 	"google.golang.org/api/gmail/v1"
+	"google.golang.org/api/option"
 )
 
 var BUCKET_NAME string = os.Getenv("BUCKET_NAME")
@@ -36,7 +38,12 @@ func init() {
 }
 
 func watchGmailHistory(ctx context.Context, e event.Event) error {
-	srv, err := autosave.
+	cl, err := oauth.NewClient(ctx, BUCKET_NAME, CREDENTIALS_JSON, TOKEN_JSON)
+	if err != nil {
+		return err
+	}
+
+	srv, err := gmail.NewService(ctx, option.WithHTTPClient(cl))
 	if err != nil {
 		return err
 	}
