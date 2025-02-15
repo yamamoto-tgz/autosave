@@ -5,7 +5,7 @@ go 1.23.5
 require (
 	github.com/GoogleCloudPlatform/functions-framework-go v1.9.1
 	github.com/cloudevents/sdk-go/v2 v2.15.2
-	github.com/yamamoto-tgz/autosave v0.0.0-20250215070048-e62c8da5a1b6
+	github.com/yamamoto-tgz/autosave/modules v0.0.0-20250215085251-5c36c882f611
 	google.golang.org/api v0.221.0
 )
 
@@ -23,8 +23,8 @@ require (
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.48.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/cncf/xds/go v0.0.0-20240905190251-b4127c9b8d78 // indirect
-	github.com/envoyproxy/go-control-plane/envoy v1.32.4 // indirect
-	github.com/envoyproxy/protoc-gen-validate v1.2.1 // indirect
+	github.com/envoyproxy/go-control-plane/envoy v1.32.3 // indirect
+	github.com/envoyproxy/protoc-gen-validate v1.1.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect

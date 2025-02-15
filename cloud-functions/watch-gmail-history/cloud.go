@@ -7,7 +7,7 @@ import (
 
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	"github.com/cloudevents/sdk-go/v2/event"
-	"github.com/yamamoto-tgz/autosave/oauth"
+	"github.com/yamamoto-tgz/autosave/modules/oauth"
 	"google.golang.org/api/gmail/v1"
 	"google.golang.org/api/option"
 )
