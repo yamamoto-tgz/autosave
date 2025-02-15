@@ -15,14 +15,20 @@ func TestSaveGmailHistory(t *testing.T) {
 	b64 := base64.URLEncoding.EncodeToString([]byte(data))
 	jsn := fmt.Sprintf(`{"message":{"data":"%s"}}`, b64)
 
-	var pdata PubsubData
-	err := json.Unmarshal([]byte(jsn), &pdata)
+	type PubsubData struct {
+		Message struct {
+			Data string
+		}
+	}
+
+	var p PubsubData
+	err := json.Unmarshal([]byte(jsn), &p)
 	if err != nil {
 		t.Fail()
 	}
 
 	e := event.New("1.0")
-	e.SetData("application/json", pdata)
+	e.SetData("application/json", p)
 
 	err = saveGmailHistory(context.Background(), e)
 	if err != nil {

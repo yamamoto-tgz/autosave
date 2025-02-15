@@ -2,7 +2,6 @@ package savegmailhistory
 
 import (
 	"context"
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 
@@ -14,37 +13,22 @@ import (
 var BUCKET_NAME = "autosave-tgz"
 var HISTORY_FILE = "history.txt"
 
-type PubsubData struct {
-	Message struct {
-		Data string `json:"data"`
-	}
-}
-
-type History struct {
-	Id           int    `json:"historyId"`
-	EmailAddress string `json:"emailAddress"`
-}
-
 func init() {
 	functions.CloudEvent("save-gmail-history", saveGmailHistory)
 }
 
 func saveGmailHistory(ctx context.Context, e event.Event) error {
-	var pdata PubsubData
-	e.DataAs(&pdata)
+	var history struct {
+		Id           int    `json:"historyId"`
+		EmailAddress string `json:"emailAddress"`
+	}
 
-	data, err := base64.URLEncoding.DecodeString(pdata.Message.Data)
+	err := json.Unmarshal(e.DataEncoded, &history)
 	if err != nil {
 		return err
 	}
 
-	var h History
-	err = json.Unmarshal(data, &h)
-	if err != nil {
-		return err
-	}
-
-	writeHistoryIdToStorage(ctx, BUCKET_NAME, HISTORY_FILE, h.Id)
+	writeHistoryIdToStorage(ctx, BUCKET_NAME, HISTORY_FILE, history.Id)
 
 	return nil
 }
