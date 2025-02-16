@@ -2,10 +2,13 @@
 
 ## Environment variables
 
-| Name         | Required | Default      |
-| ------------ | -------- | ------------ |
-| BUCKET_NAME  | False    | autosave-tgz |
-| HISTORY_FILE | False    | history.txt  |
+| Name            | Required | Default          |
+| --------------- | -------- | ---------------- |
+| SPREADSHEET_ID  | True     | -                |
+| RANGE           | True     | -                |
+| BUCKET_NAME     | False    | autosave-tgz     |
+| CREDENTIAL_JSON | False    | credentials.json |
+| TOKEN_JSON      | False    | token.json       |
 
 ## Create topic
 
@@ -23,5 +26,6 @@ gcloud functions deploy save-expenses \
     --source=./ \
     --entry-point=save-expenses \
     --trigger-topic=save-expenses \
-    --no-allow-unauthenticated
+    --no-allow-unauthenticated \
+    --set-env-vars=SPREADSHEET_ID=${SPREADSHEET_ID},RANGE=${RANGE}
 ```

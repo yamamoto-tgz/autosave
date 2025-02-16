@@ -5,7 +5,7 @@ go 1.23.5
 require (
 	github.com/GoogleCloudPlatform/functions-framework-go v1.9.1
 	github.com/cloudevents/sdk-go/v2 v2.15.2
-	github.com/yamamoto-tgz/autosave/modules v0.0.0-20250215085850-dec6687d50aa
+	github.com/yamamoto-tgz/autosave/modules v0.0.0-20250216150953-12eff0ee8594
 	google.golang.org/api v0.221.0
 )
 
