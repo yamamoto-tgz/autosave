@@ -16,8 +16,12 @@ gcloud storage buckets create gs://autosave-tgz
 
 ## Deploy save-gmail-history
 
-[save-gmail-history](./gcp/save-gmail-history/README.md)
+[save-gmail-history](./cloud-functions/save-gmail-history/README.md)
 
 ## Deploy watch-gmail-history
 
-[watch-gmail-history](./gcp/watch-gmail-history/README.md)
+[watch-gmail-history](./cloud-functions/watch-gmail-history/README.md)
+
+## Deploy save-expenses
+
+[save-expenses](./cloud-functions/save-expenses/README.md)
