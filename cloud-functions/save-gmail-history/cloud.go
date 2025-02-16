@@ -8,6 +8,7 @@ import (
 	"cloud.google.com/go/storage"
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	"github.com/cloudevents/sdk-go/v2/event"
+	"github.com/yamamoto-tgz/autosave/modules/pubsubdata"
 )
 
 var BUCKET_NAME = "autosave-tgz"
@@ -18,12 +19,23 @@ func init() {
 }
 
 func saveGmailHistory(ctx context.Context, e event.Event) error {
+	var p pubsubdata.PubsubData
+	err := json.Unmarshal(e.DataEncoded, &p)
+	if err != nil {
+		return err
+	}
+
+	data, err := p.DataDecoded()
+	if err != nil {
+		return err
+	}
+
 	var history struct {
 		Id           int    `json:"historyId"`
 		EmailAddress string `json:"emailAddress"`
 	}
 
-	err := json.Unmarshal(e.DataEncoded, &history)
+	err = json.Unmarshal(data, &history)
 	if err != nil {
 		return err
 	}
