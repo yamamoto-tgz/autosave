@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
 
 	"cloud.google.com/go/storage"
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
@@ -11,10 +12,16 @@ import (
 	"github.com/yamamoto-tgz/autosave/modules/pubsubdata"
 )
 
-var BUCKET_NAME = "autosave-tgz"
-var HISTORY_FILE = "history.txt"
+var BUCKET_NAME = os.Getenv("BUCEKT_NAME")
+var HISTORY_TXT = os.Getenv("HISTORY_TXT")
 
 func init() {
+	if BUCKET_NAME == "" {
+		BUCKET_NAME = "autosave-tgz"
+	}
+	if HISTORY_TXT == "" {
+		HISTORY_TXT = "history.txt"
+	}
 	functions.CloudEvent("save-gmail-history", saveGmailHistory)
 }
 
@@ -30,29 +37,30 @@ func saveGmailHistory(ctx context.Context, e event.Event) error {
 		return err
 	}
 
-	var history struct {
+	var h struct {
 		Id           int    `json:"historyId"`
 		EmailAddress string `json:"emailAddress"`
 	}
 
-	err = json.Unmarshal(data, &history)
+	err = json.Unmarshal(data, &h)
 	if err != nil {
 		return err
 	}
 
-	writeHistoryIdToStorage(ctx, BUCKET_NAME, HISTORY_FILE, history.Id)
-
-	return nil
-}
-
-func writeHistoryIdToStorage(ctx context.Context, bucketName string, fileName string, historyId int) (int, error) {
 	cl, err := storage.NewClient(ctx)
 	if err != nil {
-		return 0, err
+		return err
 	}
 
-	w := cl.Bucket(bucketName).Object(fileName).NewWriter(ctx)
+	w := cl.Bucket(BUCKET_NAME).Object(HISTORY_TXT).NewWriter(ctx)
 	defer w.Close()
 
-	return fmt.Fprintf(w, "%d", historyId)
+	_, err = fmt.Fprintf(w, "%d", h.Id)
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("historyId: %d\n", h.Id)
+
+	return nil
 }
