@@ -14,6 +14,10 @@ gcloud billing projects link autosave-tgz --billing-account=`gcloud billing acco
 gcloud storage buckets create gs://autosave-tgz
 ```
 
+## Deploy send-line-messages
+
+[send-line-messages](./cloud-functions/send-line-messages/README.md)
+
 ## Deploy save-gmail-history
 
 [save-gmail-history](./cloud-functions/save-gmail-history/README.md)
