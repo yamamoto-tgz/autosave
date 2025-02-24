@@ -25,3 +25,10 @@ func (l *LinePusher) SendLineMessage(ctx context.Context, txt []byte) error {
 
 	return nil
 }
+
+func NewDefaultLinePusher() LinePusher {
+	return LinePusher{
+		ProjectId: "autosave-tgz",
+		TopicId:   "send-line-message",
+	}
+}
