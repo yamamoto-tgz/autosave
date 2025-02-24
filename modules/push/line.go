@@ -11,16 +11,17 @@ type LinePusher struct {
 	TopicId   string
 }
 
-func (l *LinePusher) SendLineMessage(ctx context.Context, txt string) error {
+func (l *LinePusher) SendLineMessage(ctx context.Context, txt []byte) error {
 	cl, err := pubsub.NewClient(ctx, l.ProjectId)
 	if err != nil {
 		return err
 	}
 	defer cl.Close()
 
-	cl.Topic(l.TopicId).Publish(ctx, &pubsub.Message{
-		Data: []byte(txt),
-	})
+	_, err = cl.Topic(l.TopicId).Publish(ctx, &pubsub.Message{Data: txt}).Get(ctx)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
