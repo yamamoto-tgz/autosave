@@ -12,6 +12,10 @@ import (
 	"google.golang.org/api/gmail/v1"
 )
 
+func NewDefaultClient(ctx context.Context) (*http.Client, error) {
+	return NewClient(ctx, "autosave-tgz", "credentials.json", "token.json")
+}
+
 func NewClient(ctx context.Context, bucketName string, credentialJson string, tokenJson string) (*http.Client, error) {
 	config, err := readAuthConfig(ctx, bucketName, credentialJson)
 	if err != nil {
