@@ -1,4 +1,4 @@
-module github.com/yamamoto-tgz/autosave/modules
+module github.com/yamamoto-tgz/autosave/packages
 
 go 1.23.5
 
