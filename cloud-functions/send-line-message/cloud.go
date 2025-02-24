@@ -1,4 +1,4 @@
-package saveexpenses
+package sendlinemessage
 
 import (
 	"context"
@@ -12,10 +12,10 @@ import (
 )
 
 func init() {
-	functions.CloudEvent("send-line-messages", sendLineMessages)
+	functions.CloudEvent("send-line-message", sendLineMessage)
 }
 
-func sendLineMessages(ctx context.Context, e event.Event) error {
+func sendLineMessage(ctx context.Context, e event.Event) error {
 	txt := string(push.ExtractData(e))
 	fmt.Printf("Received text: %s\n", txt)
 

@@ -1,4 +1,4 @@
-package saveexpenses
+package sendlinemessage
 
 import (
 	"context"
@@ -9,14 +9,14 @@ import (
 	"github.com/yamamoto-tgz/autosave/modules/push"
 )
 
-func TestSendLineMessages(t *testing.T) {
+func TestSendLineMessage(t *testing.T) {
 	p := push.New([]byte("HELLO WORLD"))
 	jsn, _ := json.Marshal(p)
 
 	e := event.New("1.0")
 	e.SetData("application/json", jsn)
 
-	err := sendLineMessages(context.Background(), e)
+	err := sendLineMessage(context.Background(), e)
 	if err != nil {
 		t.Error(err)
 	}

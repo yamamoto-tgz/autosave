@@ -8,7 +8,7 @@ import (
 func TestSendLineMessage(t *testing.T) {
 	l := LinePusher{
 		ProjectId: "autosave-tgz",
-		TopicId:   "send-line-messages",
+		TopicId:   "send-line-message",
 	}
 
 	txt := []byte("HELLO WORLD")
