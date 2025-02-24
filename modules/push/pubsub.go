@@ -5,10 +5,19 @@ import (
 	"github.com/cloudevents/sdk-go/v2/event"
 )
 
-func ExtractData(e event.Event) []byte {
-	type Pubsub struct {
-		Message pubsub.Message `json:"message"`
+type Pubsub struct {
+	Message pubsub.Message `json:"message"`
+}
+
+func New(data []byte) Pubsub {
+	return Pubsub{
+		Message: pubsub.Message{
+			Data: data,
+		},
 	}
+}
+
+func ExtractData(e event.Event) []byte {
 
 	var p Pubsub
 	e.DataAs(&p)
