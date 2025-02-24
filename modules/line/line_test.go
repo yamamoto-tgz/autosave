@@ -1,13 +1,12 @@
-package line_test
+package line
 
 import (
-	"line"
 	"os"
 	"testing"
 )
 
 func TestSendTextMessage(t *testing.T) {
-	l := &line.User{
+	l := &User{
 		Id:    os.Getenv("LINE_USER_ID"),
 		Token: os.Getenv("LINE_TOKEN"),
 	}
