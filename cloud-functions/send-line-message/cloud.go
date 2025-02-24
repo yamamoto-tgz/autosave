@@ -7,8 +7,8 @@ import (
 
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	"github.com/cloudevents/sdk-go/v2/event"
-	"github.com/yamamoto-tgz/autosave/modules/line"
-	"github.com/yamamoto-tgz/autosave/modules/push"
+	"github.com/yamamoto-tgz/autosave/packages/line"
+	"github.com/yamamoto-tgz/autosave/packages/push"
 )
 
 func init() {

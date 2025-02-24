@@ -93,14 +93,10 @@ github.com/stretchr/testify v1.10.0 h1:Xv5erBjTwe/5IxqUQTdXv5kgmIvbHo3QQyRwhJsOf
 github.com/stretchr/testify v1.10.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
 github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyCJ6HpOuEn7z0Csc=
-github.com/yamamoto-tgz/autosave/modules v0.0.0-20250224112616-ead5d21ee346 h1:lX54zTpVcGfie8XHUoPdvGr3qETSVDA2wNFLEGz1dlg=
-github.com/yamamoto-tgz/autosave/modules v0.0.0-20250224112616-ead5d21ee346/go.mod h1:5eb8uwEwSro6vp3b9OtqxIuIHYEm00IBB/GwvlmPbj4=
-github.com/yamamoto-tgz/autosave/modules v0.0.0-20250224133407-aacc1f2213c8 h1:vAd134v9e0D09q0F0v1oiP5NYf9oUtCdVc+rVFO5b1A=
-github.com/yamamoto-tgz/autosave/modules v0.0.0-20250224133407-aacc1f2213c8/go.mod h1:N/t/zQj9Hm2UVhTg/d824OJWxWgn3Z4P+X3/WsihNwg=
-github.com/yamamoto-tgz/autosave/modules v0.0.0-20250224135432-db1a3b7901cc h1:sjCeu/sBe/3WjqTY+2UXdswyn/jYlQnc78fAgXLuLFU=
-github.com/yamamoto-tgz/autosave/modules v0.0.0-20250224135432-db1a3b7901cc/go.mod h1:N/t/zQj9Hm2UVhTg/d824OJWxWgn3Z4P+X3/WsihNwg=
 github.com/yamamoto-tgz/autosave/modules v0.0.0-20250224140201-b177e4bff692 h1:1OMd0LBxLVI3huTs0oD6ODihLBySfOvATm1Jr1KDROk=
 github.com/yamamoto-tgz/autosave/modules v0.0.0-20250224140201-b177e4bff692/go.mod h1:N/t/zQj9Hm2UVhTg/d824OJWxWgn3Z4P+X3/WsihNwg=
+github.com/yamamoto-tgz/autosave/packages v0.0.0-20250224141515-766e61756b45 h1:sS34gkYu1vrUIVm1tO2yPI3+DQN25phNHpPbxiYr7g4=
+github.com/yamamoto-tgz/autosave/packages v0.0.0-20250224141515-766e61756b45/go.mod h1:9SoparOcD5mdQzFBjoylMSjVrLc4bTz9dIlmVvXz0zs=
 go.einride.tech/aip v0.68.1 h1:16/AfSxcQISGN5z9C5lM+0mLYXihrHbQ1onvYTr93aQ=
 go.einride.tech/aip v0.68.1/go.mod h1:XaFtaj4HuA3Zwk9xoBtTWgNubZ0ZZXv9BZJCkuKuWbg=
 go.opencensus.io v0.24.0 h1:y73uSU6J157QMP2kn2r30vwW1A2W2WFwSCGnAVxeaD0=
