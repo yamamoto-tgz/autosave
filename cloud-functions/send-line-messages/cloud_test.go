@@ -6,19 +6,15 @@ import (
 	"testing"
 
 	"github.com/cloudevents/sdk-go/v2/event"
-	"github.com/yamamoto-tgz/autosave/modules/line"
-	"github.com/yamamoto-tgz/autosave/modules/pubsubdata"
+	"github.com/yamamoto-tgz/autosave/modules/push"
 )
 
-func TestSaveGmailHistory(t *testing.T) {
-	messages := []line.TextMessage{
-		line.NewTextMessage("HELLO"),
-		line.NewTextMessage("WORLD"),
-	}
-	j, _ := json.Marshal(messages)
-	p := pubsubdata.New(string(j))
+func TestSendLineMessages(t *testing.T) {
+	p := push.New([]byte("HELLO WORLD"))
+	jsn, _ := json.Marshal(p)
+
 	e := event.New("1.0")
-	e.SetData("application/json", p)
+	e.SetData("application/json", jsn)
 
 	err := sendLineMessages(context.Background(), e)
 	if err != nil {

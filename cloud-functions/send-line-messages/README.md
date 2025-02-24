@@ -24,5 +24,5 @@ gcloud functions deploy send-line-messages \
     --entry-point=send-line-messages \
     --trigger-topic=send-line-messages \
     --no-allow-unauthenticated \
-    --set-env-vars=LINE_USER_ID=${LINE_USER_ID},LINE_TOKE=${LINE_TOKEN}
+    --set-env-vars=LINE_USER_ID=${LINE_USER_ID},LINE_TOKEN=${LINE_TOKEN}
 ```
