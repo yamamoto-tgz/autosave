@@ -7,38 +7,18 @@ import (
 
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	"github.com/cloudevents/sdk-go/v2/event"
-	"github.com/yamamoto-tgz/autosave/modules/oauth"
+	"github.com/yamamoto-tgz/autosave/packages/oauth"
+	"github.com/yamamoto-tgz/autosave/packages/push"
 	"google.golang.org/api/gmail/v1"
 	"google.golang.org/api/option"
 )
 
-var BUCKET_NAME string = os.Getenv("BUCKET_NAME")
-var CREDENTIALS_JSON string = os.Getenv("CREDENTIALS_JSON")
-var TOKEN_JSON string = os.Getenv("TOKEN_JSON")
-var PROJECT_NAME string = os.Getenv("PROJECT_NAME")
-var TOPIC_NAME string = os.Getenv("TOPIC_NAME")
-
 func init() {
-	if BUCKET_NAME == "" {
-		BUCKET_NAME = "autosave-tgz"
-	}
-	if CREDENTIALS_JSON == "" {
-		CREDENTIALS_JSON = "credentials.json"
-	}
-	if TOKEN_JSON == "" {
-		TOKEN_JSON = "token.json"
-	}
-	if PROJECT_NAME == "" {
-		PROJECT_NAME = "autosave-tgz"
-	}
-	if TOPIC_NAME == "" {
-		TOPIC_NAME = "gmail"
-	}
 	functions.CloudEvent("watch-gmail-history", watchGmailHistory)
 }
 
 func watchGmailHistory(ctx context.Context, e event.Event) error {
-	cl, err := oauth.NewClient(ctx, BUCKET_NAME, CREDENTIALS_JSON, TOKEN_JSON)
+	cl, err := oauth.NewDefaultClient(ctx)
 	if err != nil {
 		return err
 	}
@@ -51,7 +31,7 @@ func watchGmailHistory(ctx context.Context, e event.Event) error {
 	request := &gmail.WatchRequest{
 		LabelIds:            []string{os.Getenv("RKTN_PAY_LABEL"), os.Getenv("RKTN_DEBIT_LABEL")},
 		LabelFilterBehavior: "include",
-		TopicName:           fmt.Sprintf("projects/%s/topics/%s", PROJECT_NAME, TOPIC_NAME),
+		TopicName:           "projects/autosave-tgz/topics/receive-gmail-history",
 	}
 
 	res, err := srv.Users.Watch("me", request).Do()
@@ -59,7 +39,16 @@ func watchGmailHistory(ctx context.Context, e event.Event) error {
 		return err
 	}
 
-	fmt.Printf("HistoryId: %d\n", res.HistoryId)
+	fmt.Printf("Status code: : %d\n", res.HTTPStatusCode)
+
+	msg := fmt.Sprintf("Start watching from: %d", res.HistoryId)
+	fmt.Println(msg)
+
+	p := push.NewDefaultLinePusher()
+	err = p.SendLineMessage(ctx, []byte(msg))
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

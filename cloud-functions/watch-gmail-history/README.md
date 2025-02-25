@@ -2,15 +2,10 @@
 
 ## Environment variables
 
-| Name             | Required | Default          |
-| ---------------- | -------- | ---------------- |
-| RKTN_PAY_LABEL   | True     | -                |
-| RKTN_DEBIT_LABEL | True     | -                |
-| BUCKET_NAME      | False    | autosave-tgz     |
-| CREDENTIAL_JSON  | False    | credentials.json |
-| TOKEN_JSON       | False    | token.json       |
-| PROJECT_NAME     | False    | autosave-tgz     |
-| TOPIC_NAME       | False    | gmail            |
+| Name             | Required | Default |
+| ---------------- | -------- | ------- |
+| RKTN_PAY_LABEL   | True     | -       |
+| RKTN_DEBIT_LABEL | True     | -       |
 
 ## Create topic
 
