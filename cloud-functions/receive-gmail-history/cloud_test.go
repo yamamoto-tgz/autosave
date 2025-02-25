@@ -12,7 +12,7 @@ import (
 func TestReceiveGmailHistory(t *testing.T) {
 	h, _ := json.Marshal(History{
 		EmailAddress: "autosave@yamamoto.tgz",
-		HistoryId:    12345,
+		HistoryId:    999999,
 	})
 
 	jsn, _ := json.Marshal(push.New([]byte(h)))

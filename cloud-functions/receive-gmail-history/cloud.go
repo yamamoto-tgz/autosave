@@ -35,5 +35,5 @@ func receiveGmailHistory(ctx context.Context, e event.Event) error {
 
 type History struct {
 	EmailAddress string `json:"emailAddress"`
-	HistoryId    uint16 `json:"historyId"`
+	HistoryId    uint32 `json:"historyId"`
 }
